@@ -6,7 +6,7 @@ Team: 07885 / 07879 / 09212
 
 ## How to Build
 
-Open a terminal, go into this folder (the one with raytracer.cpp), and run:
+Open a terminal, `cd` into the `raytracer/` folder (that's where `raytracer.cpp` lives), and run:
 
 ```bash
 g++ -O3 -fopenmp -std=c++17 \
