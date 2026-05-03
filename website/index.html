@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crystal Cavern - CS440 Project 2</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #0d0d12;
+    color: #d8d8e0;
+    line-height: 1.6;
+}
+header {
+    padding: 70px 40px 50px;
+    background: #1a1530;
+    text-align: center;
+    border-bottom: 1px solid #2a2a3a;
+}
+header h1 {
+    font-size: 2.6em;
+    color: #e8e0ff;
+    margin-bottom: 8px;
+}
+header .subtitle {
+    color: #8a85a0;
+    font-size: 1.05em;
+}
+header .team {
+    margin-top: 14px;
+    color: #6a6580;
+    font-size: 0.9em;
+    font-family: monospace;
+}
+main {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 45px 28px;
+}
+section {
+    margin-bottom: 65px;
+}
+h2 {
+    font-size: 1.6em;
+    color: #c9bfff;
+    margin-bottom: 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #2a2a3a;
+}
+h3 {
+    font-size: 1.1em;
+    color: #b8b0d0;
+    margin: 22px 0 8px;
+}
+p {
+    margin-bottom: 12px;
+    color: #c0bcd0;
+}
+.hero-image {
+    width: 100%;
+    border-radius: 6px;
+    margin: 24px 0;
+    box-shadow: 0 8px 32px rgba(100, 60, 180, 0.2);
+    border: 1px solid #2a2a3a;
+}
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 18px;
+}
+.image-grid figure {
+    background: #15151e;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #2a2a3a;
+}
+.image-grid img {
+    width: 100%;
+    border-radius: 3px;
+    display: block;
+}
+.image-grid figcaption {
+    color: #8a85a0;
+    font-size: 0.82em;
+    margin-top: 6px;
+    text-align: center;
+    font-family: monospace;
+}
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-top: 18px;
+}
+.feature-card {
+    background: #15151e;
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid #2a2a3a;
+}
+.feature-card h3 {
+    color: #c9bfff;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+.feature-card ul {
+    list-style: none;
+    padding-left: 0;
+}
+.feature-card li {
+    padding: 3px 0;
+    color: #b0a8c5;
+    font-size: 0.93em;
+}
+.feature-card li::before {
+    content: "> ";
+    color: #7a6dab;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 18px;
+    background: #15151e;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid #2a2a3a;
+}
+th, td {
+    padding: 11px 14px;
+    text-align: left;
+    border-bottom: 1px solid #2a2a3a;
+}
+th {
+    background: #1c1c28;
+    color: #c9bfff;
+    font-weight: 600;
+    font-size: 0.92em;
+}
+td {
+    color: #b0a8c5;
+    font-size: 0.9em;
+    font-family: monospace;
+}
+tr:last-child td { border-bottom: none; }
+.speedup {
+    color: #6ee7a0;
+    font-weight: 600;
+}
+.note {
+    background: #1a1530;
+    border-left: 3px solid #7a6dab;
+    padding: 14px 18px;
+    border-radius: 0 5px 5px 0;
+    margin: 18px 0;
+    color: #c0bcd0;
+    font-size: 0.93em;
+}
+code {
+    background: #1c1c28;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 0.88em;
+    color: #e8d4ff;
+}
+pre {
+    background: #15151e;
+    padding: 18px;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin-top: 10px;
+    border: 1px solid #2a2a3a;
+}
+pre code {
+    background: none;
+    padding: 0;
+    color: #d0c8e0;
+    font-size: 0.84em;
+}
+.contributions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+.contributor {
+    background: #15151e;
+    padding: 16px;
+    border-radius: 5px;
+    border: 1px solid #2a2a3a;
+}
+.contributor .id {
+    font-family: monospace;
+    color: #c9bfff;
+    font-weight: 600;
+}
+.contributor .role {
+    color: #8a85a0;
+    font-size: 0.83em;
+    margin: 3px 0 8px;
+}
+.contributor ul {
+    list-style: none;
+    padding: 0;
+    font-size: 0.86em;
+    color: #b0a8c5;
+}
+.contributor li { padding: 2px 0; }
+footer {
+    text-align: center;
+    padding: 36px 20px 50px;
+    color: #6a6580;
+    font-size: 0.83em;
+    border-top: 1px solid #2a2a3a;
+    margin-top: 30px;
+}
+@media (max-width: 700px) {
+    .image-grid, .feature-grid, .contributions { grid-template-columns: 1fr; }
+    header h1 { font-size: 1.9em; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Crystal Cavern</h1>
+    <div class="subtitle">CS 440 Project 2 - Extended Ray Tracing Engine</div>
+    <div class="team">Habib University, Spring 2026<br>Team 07885 / 07879 / 09212</div>
+</header>
+
+<main>
+
+<section>
+    <h2>Final Render</h2>
+    <img src="images/cavern_hq.png" alt="Crystal Cavern 1920x1080" class="hero-image">
+    <p>This is our Crystal Cavern scene at 1920x1080. The idea was an underground cave with crystal spikes growing up from the floor and hanging down from the ceiling. The floor has a mirror-like reflective material so you can see the crystals reflected in it. There's a clear path down the middle so the camera can look into the cave.</p>
+    <p>Total triangle count is 1,292,392 which is over the 1 million mark. Without BVH this would be basically impossible to render at this size - with it, it takes around 9 minutes on our machine.</p>
+</section>
+
+<section>
+    <h2>Scene Overview</h2>
+    <p>The cavern is a 400 x 140 x 470 world-space box. Each crystal is built from triangles - a hexagonal base, a trunk section, and a pointed tip, so 18 triangles per crystal. We procedurally place clusters of crystals on both the floor and ceiling, then scatter single ones all over to fill in the gaps.</p>
+    <p>We cleared a corridor down the middle of the floor so the camera can actually see into the scene without crystals in the way. The floor uses our Reflective material. Walls are Matte with a brownish color. Crystals use Phong with different shininess depending on which color variant they are.</p>
+    <p>For lighting we have two shadow-casting point lights at different depths to create some depth, plus a few fill lights without shadows to bring out the color. There's also a directional light coming from above to simulate a crack of light in the cave ceiling.</p>
+</section>
+
+<section>
+    <h2>What We Implemented</h2>
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>BRDFs (brdf/)</h3>
+            <ul>
+                <li>Lambertian - diffuse, kd * cd / pi</li>
+                <li>GlossySpecular - Phong lobe, ks and exp</li>
+                <li>PerfectSpecular - for mirror reflection rays</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <h3>Materials (materials/)</h3>
+            <ul>
+                <li>Matte - ambient + diffuse</li>
+                <li>Phong - adds specular highlight on top</li>
+                <li>Reflective - Phong + reflection ray via Whitted</li>
+                <li>Cosine - legacy from hw5, kept as-is</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <h3>Lights (lights/)</h3>
+            <ul>
+                <li>PointLight - with distance-based shadow test</li>
+                <li>Directional - parallel rays, like a sun</li>
+                <li>each light has a shadows on/off flag</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <h3>Tracers (tracers/)</h3>
+            <ul>
+                <li>Basic - just hits and shades, no recursion</li>
+                <li>Whitted - handles shadows + reflection bounces</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <h3>Samplers (samplers/)</h3>
+            <ul>
+                <li>Simple - one ray per pixel (hw5 original)</li>
+                <li>Jittered - NxN stratified samples per pixel</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <h3>Acceleration (acceleration/)</h3>
+            <ul>
+                <li>BVH - top-down median split</li>
+                <li>toggled with World::use_accel flag</li>
+                <li>~4165x per-pixel speedup at our scene scale</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>BVH vs No BVH</h2>
+    <p>We ran both versions to get actual numbers. The no-BVH version we kept at 20x15 because it takes almost a minute just for that. With BVH the same scene at 480x360 is about 20 seconds total.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Config</th>
+                <th>Resolution</th>
+                <th>Primitives</th>
+                <th>Wall Time</th>
+                <th>Per pixel</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>No BVH (brute force)</td>
+                <td>20 x 15</td>
+                <td>1.29M</td>
+                <td>50.2 s</td>
+                <td>166.6 ms</td>
+            </tr>
+            <tr>
+                <td>BVH on, low preview</td>
+                <td>480 x 360</td>
+                <td>1.29M</td>
+                <td>19.9 s</td>
+                <td>0.115 ms</td>
+            </tr>
+            <tr>
+                <td>BVH on, mid</td>
+                <td>1280 x 720</td>
+                <td>1.29M</td>
+                <td>1 min 10 s</td>
+                <td>0.076 ms</td>
+            </tr>
+            <tr>
+                <td>BVH on, full (2x2 jitter)</td>
+                <td>1920 x 1080</td>
+                <td>1.29M</td>
+                <td>9 min 13 s</td>
+                <td>0.267 ms</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="note">
+        Per-pixel speedup: <span class="speedup">166.6ms / 0.040ms = ~4165x</span>. The BVH gets each ray from O(N) down to roughly O(log N). Full timing data is in timings.txt.
+    </div>
+</section>
+
+<section>
+    <h2>Build Files</h2>
+    <p>Each scene is a separate build file in build/. You compile by swapping in which one you want.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>File</th>
+                <th>Output size</th>
+                <th>What it does</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>buildCrystalCavern.cpp</td><td>1920 x 1080</td><td>Full quality, jittered 2x2, BVH on</td></tr>
+            <tr><td>buildCrystalCavernMid.cpp</td><td>1280 x 720</td><td>Mid quality, simple sampler, BVH on</td></tr>
+            <tr><td>buildCrystalCavernLow.cpp</td><td>480 x 360</td><td>Quick preview, BVH on</td></tr>
+            <tr><td>buildCrystalCavernNoAccel.cpp</td><td>20 x 15</td><td>No BVH, for timing comparison</td></tr>
+            <tr><td>buildHelloWorld.cpp</td><td>400 x 400</td><td>hw5 regression test</td></tr>
+            <tr><td>buildMvp.cpp</td><td>400 x 400</td><td>hw5 regression test</td></tr>
+            <tr><td>buildChapter14.cpp</td><td>400 x 400</td><td>hw5 regression test</td></tr>
+        </tbody>
+    </table>
+    <h3>Compile command</h3>
+    <pre><code>g++ -O3 -fopenmp -std=c++17 \
+    raytracer.cpp \
+    world/*.cpp utilities/*.cpp geometry/*.cpp cameras/*.cpp \
+    image/*.cpp samplers/*.cpp materials/*.cpp brdf/*.cpp \
+    lights/*.cpp tracers/*.cpp acceleration/*.cpp \
+    build/buildCrystalCavern.cpp \
+    -o scene.exe && ./scene.exe</code></pre>
+    <p>Output is written to scene.png in the current directory.</p>
+</section>
+
+<section>
+    <h2>HW5 Outputs (regression check)</h2>
+    <p>These are the locked hw5 outputs. Our new code doesn't touch the hw5 path at all so they still match byte for byte.</p>
+    <div class="image-grid">
+        <figure>
+            <img src="images/helloworld.png" alt="HelloWorld">
+            <figcaption>buildHelloWorld.cpp</figcaption>
+        </figure>
+        <figure>
+            <img src="images/mvp.png" alt="MVP">
+            <figcaption>buildMvp.cpp</figcaption>
+        </figure>
+        <figure>
+            <img src="images/chapter14.png" alt="Chapter14">
+            <figcaption>buildChapter14.cpp</figcaption>
+        </figure>
+    </div>
+</section>
+
+<section>
+    <h2>Bonus stuff</h2>
+    <ul style="list-style:none;padding-left:0;">
+        <li style="padding:7px 0;border-bottom:1px solid #2a2a3a;"><strong style="color:#c9bfff;">Reflections</strong> - the floor is Reflective so it bounces back a mirror ray using PerfectSpecular BRDF. You can see crystals in the floor.</li>
+        <li style="padding:7px 0;border-bottom:1px solid #2a2a3a;"><strong style="color:#c9bfff;">OpenMP</strong> - outer pixel loop has <code>#pragma omp parallel for schedule(dynamic, 4)</code>. Compile with -fopenmp. Scales with the number of cores.</li>
+        <li style="padding:7px 0;border-bottom:1px solid #2a2a3a;"><strong style="color:#c9bfff;">Per-light shadow flag</strong> - Light base class has a <code>shadows</code> bool. Some lights cast shadows, some are just fill lights. Makes the scene look better without killing performance.</li>
+        <li style="padding:7px 0;"><strong style="color:#c9bfff;">Jittered AA</strong> - Jittered sampler splits each pixel into NxN cells and jitters the sample within each. Reduces aliasing at edges.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Contributions</h2>
+    <div class="contributions">
+        <div class="contributor">
+            <div class="id">07885</div>
+            <div class="role">engine side</div>
+            <ul>
+                <li>BRDF classes</li>
+                <li>Matte/Phong/Reflective materials</li>
+                <li>Whitted tracer</li>
+                <li>reflection math</li>
+            </ul>
+        </div>
+        <div class="contributor">
+            <div class="id">07879</div>
+            <div class="role">acceleration + sampling</div>
+            <ul>
+                <li>BVH build and traversal</li>
+                <li>Jittered sampler</li>
+                <li>OpenMP setup</li>
+                <li>timing runs</li>
+            </ul>
+        </div>
+        <div class="contributor">
+            <div class="id">09212</div>
+            <div class="role">scene + lights</div>
+            <ul>
+                <li>crystal cavern generator</li>
+                <li>Light base + PointLight + Directional</li>
+                <li>scene tuning and lighting</li>
+                <li>website and readme</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>References</h2>
+    <ul style="list-style:none;padding-left:0;color:#b0a8c5;font-size:0.9em;">
+        <li style="padding:5px 0;">Suffern, K. Ray Tracing from the Ground Up. CRC Press. - main reference for basically everything, BRDF formulas, Whitted tracer structure, sampler design.</li>
+        <li style="padding:5px 0;">Pharr, Jakob, Humphreys. Physically Based Rendering. - used for the BVH construction and traversal.</li>
+        <li style="padding:5px 0;">Shirley. Ray Tracing in One Weekend. - AABB slab intersection reference.</li>
+        <li style="padding:5px 0;">Moller-Trumbore triangle intersection paper - used for Triangle::hit implementation.</li>
+        <li style="padding:5px 0;">Naica crystal cave photos - visual reference for the scene idea.</li>
+        <li style="padding:5px 0;">cppreference, stackoverflow - various C++17 / OpenMP questions.</li>
+    </ul>
+</section>
+
+</main>
+
+<footer>
+    CS 440 Project 2 - Habib University, Spring 2026
+</footer>
+
+</body>
+</html>
